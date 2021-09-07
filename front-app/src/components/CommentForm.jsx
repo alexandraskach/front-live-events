@@ -5,6 +5,7 @@ import { Button, Container, Alert, Card } from "react-bootstrap";
 import * as Yup from "yup";
 import { connect } from "react-redux";
 import { commentAdd } from "../actions/actions";
+import "./CommentList.css";
 
 const mapDispatchToProps = {
   commentAdd,
@@ -67,6 +68,7 @@ class CommentForm extends Component {
                     variant="primary"
                     type="submit"
                     disabled={isSubmitting}
+                    className="button-colored"
                   >
                     Ajouter le commentaire
                   </Button>

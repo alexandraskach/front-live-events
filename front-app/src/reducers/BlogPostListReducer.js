@@ -20,7 +20,6 @@ const blogPostListReducer = (
       };
       return state;
     case BLOG_POST_LIST_RECEIVED:
-      console.log("action", action);
       state = {
         ...state,
         posts: action.data["hydra:member"],

@@ -3,48 +3,110 @@ import RenderField from "../form";
 import { Formik } from "formik";
 import { Button, Container, Alert, Form } from "react-bootstrap";
 import { connect } from "react-redux";
-import { userLoginAttempt } from "../actions/actions";
+import { userRegister } from "../actions/actions";
 import * as Yup from "yup";
-
-const mapStateToProps = (state) => ({
-  ...state.Auth,
-});
+import "../index.css";
 
 const mapDispatchToProps = {
-  userLoginAttempt,
+  userRegister,
 };
 
 class RegistrationForm extends Component {
   render() {
+    const lowerCaseRegex = /(?=.*[a-z])/;
+    const upperCaseRegex = /(?=.*[A-Z])/;
+    const numericRegex = /(?=.*[0-9])/;
     return (
       <Container>
         <h3 className="mb-3">Création de compte</h3>
         <Formik
           initialValues={{
+            name: "",
             username: "",
             password: "",
             retypedPassword: "",
-            name: "",
             mail: "",
           }}
           onSubmit={(values, { setSubmitting, resetForm }) => {
             console.log("form data", values);
             setSubmitting = "false";
-            resetForm();
-            // return this.props.userLoginAttempt(
-            //   values.username,
-            //   values.password
-            // );
+            return this.props
+              .userRegister(
+                values.name,
+                values.username,
+                values.password,
+                values.retypedPassword,
+                values.mail
+              )
+              .then(() => {
+                resetForm();
+              });
           }}
           validationSchema={Yup.object({
-            username: Yup.string().required(
+            name: Yup.string()
+              .required(
+                <Alert variant="danger" className="mt-2">
+                  Prénom requis
+                </Alert>
+              )
+              .min(
+                3,
+                <Alert variant="danger" className="mt-2">
+                  Prénom est trop court. Il doit avoir au moins 3 caractères
+                </Alert>
+              ),
+            username: Yup.string()
+              .required(
+                <Alert variant="danger" className="mt-2">
+                  Nom d'utilisateur requis
+                </Alert>
+              )
+              .min(
+                6,
+                <Alert variant="danger" className="mt-2">
+                  Nom d'utilisateur est trop court. Il doit avoir au moins 6
+                  caractères
+                </Alert>
+              ),
+            password: Yup.string()
+              .required(
+                <Alert variant="danger" className="mt-2">
+                  Mot de passe requis
+                </Alert>
+              )
+              .min(
+                7,
+                <Alert variant="danger" className="mt-2">
+                  Le mot de passe doit comporter au moins 7 lettres
+                </Alert>
+              )
+              .matches(
+                lowerCaseRegex,
+                "Le mot de passe doit comporter au moins 1 minuscule"
+              )
+              .matches(
+                upperCaseRegex,
+                "Le mot de passe doit comporter au moins 1 majuscule"
+              )
+              .matches(
+                numericRegex,
+                "Le mot de passe doit comporter au moins 1 chiffre"
+              ),
+            retypedPassword: Yup.string()
+              .required(
+                <Alert variant="danger" className="mt-2">
+                  Veuillez répéter le mot de passe
+                </Alert>
+              )
+              .oneOf(
+                [Yup.ref("password")],
+                <Alert variant="danger" className="mt-2">
+                  Le mot de passe ne correspond pas
+                </Alert>
+              ),
+            mail: Yup.string().required(
               <Alert variant="danger" className="mt-2">
-                Nom d'utilisateur requis
-              </Alert>
-            ),
-            password: Yup.string().required(
-              <Alert variant="danger" className="mt-2">
-                Mot de passe requis
+                Email requis
               </Alert>
             ),
           })}
@@ -78,15 +140,21 @@ class RegistrationForm extends Component {
               <RenderField
                 label="E-mail"
                 type="email"
-                name="email"
+                name="mail"
               ></RenderField>
               <Form.Group className="mb-3" controlId="formBasicCheckbox">
                 <Form.Check
                   type="checkbox"
                   label="J'ai lu et j'accepte la politique de confidentialité."
+                  required
                 />
               </Form.Group>
-              <Button variant="primary" type="submit" disabled={isSubmitting}>
+              <Button
+                className="button-colored"
+                variant="primary"
+                type="submit"
+                disabled={isSubmitting}
+              >
                 Envoyer
               </Button>
             </form>
@@ -97,4 +165,4 @@ class RegistrationForm extends Component {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(RegistrationForm);
+export default connect(null, mapDispatchToProps)(RegistrationForm);

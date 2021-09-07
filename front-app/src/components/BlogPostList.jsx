@@ -5,6 +5,7 @@ import { Container } from "react-bootstrap";
 import { Row } from "react-bootstrap";
 import timeago from "timeago.js";
 import Spinner from "./Spinner";
+import "../index.css";
 
 function BlogPostList(props) {
   const { posts, fetching } = props;
@@ -23,13 +24,20 @@ function BlogPostList(props) {
         <Row>
           {posts &&
             posts.map((post) => (
-              <Card key={post.id} style={{ width: "18rem" }} className="p-2">
-                {/* <Card.Img variant="top" src="holder.js/100px180" /> */}
+              <Card
+                key={post.id}
+                style={{ width: "18rem" }}
+                className="p-2 m-2"
+              >
                 <Card.Body>
                   <Card.Title>{post.title}</Card.Title>
                   <Card.Text>{post.content}</Card.Text>
                   <Card.Text>{timeago().format(post.date)}</Card.Text>
-                  <Button href={`/actualites/${post.id}`} variant="primary">
+                  <Button
+                    className="button-colored"
+                    href={`/actualites/${post.id}`}
+                    variant="primary"
+                  >
                     Lire plus
                   </Button>
                 </Card.Body>

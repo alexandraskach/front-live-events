@@ -25,6 +25,17 @@ import {
   IMAGE_DELETE_REQUEST,
   COMMENT_ADDED,
   USER_LOGOUT,
+  USER_REGISTER_SUCCESS,
+  USER_CONFIRMATION_SUCCESS,
+  USER_REGISTER_COMPLETE,
+  BLOG_POST_FORM_UNLOAD,
+  CONCERT_REQUEST,
+  CONCERT_LIST_REQUEST,
+  CONCERT_LIST_ERROR,
+  CONCERT_LIST_RECEIVED,
+  CONCERT_ERROR,
+  CONCERT_RECEIVED,
+  CONCERT_UNLOAD,
 } from "./constants";
 
 export const blogPostListFetch = () => {
@@ -79,12 +90,79 @@ export const blogPostFetch = (id) => {
   };
 };
 
-export const blogPostAdd = () => ({
-  type: BLOG_POST_LIST_ADD,
-  data: {
-    id: Math.floor(Math.random() * 100 + 3),
-    title: "a newly added blogpost",
-  },
+export const blogPostAdd = (title, content, images = []) => {
+  return (dispatch) => {
+    return requests
+      .post("/actualites", {
+        title,
+        content,
+        slug: title && title.replace(/ /g, "-").toLowerCase(),
+        images: images.map((image) => `/api/images/${image.id}`),
+      })
+      .catch((error) => {
+        if (401 === error.response.status) {
+          return dispatch(userLogout());
+        } else if (403 === error.response.status) {
+          console.log("You do not have rights to publish blog posts!");
+        }
+      });
+  };
+};
+
+export const blogPostFormUnload = () => ({
+  type: BLOG_POST_FORM_UNLOAD,
+});
+
+export const concertFetch = (id) => {
+  return (dispatch) => {
+    dispatch(concertRequest());
+    return requests
+      .get(`/concerts/${id}`)
+      .then((response) => dispatch(concertReceived(response)))
+      .catch((error) => dispatch(concertError(error)));
+  };
+};
+
+export const concertListFetch = () => {
+  return (dispatch) => {
+    dispatch(concertListRequest());
+    return requests
+      .get("/concerts")
+      .then((response) => dispatch(concertListReceived(response)))
+      .catch((error) => dispatch(concertListError(error)));
+  };
+};
+
+export const concertRequest = () => ({
+  type: CONCERT_REQUEST,
+});
+
+export const concertListRequest = () => ({
+  type: CONCERT_LIST_REQUEST,
+});
+
+export const concertListError = (error) => ({
+  type: CONCERT_LIST_ERROR,
+  error,
+});
+
+export const concertListReceived = (data) => ({
+  type: CONCERT_LIST_RECEIVED,
+  data,
+});
+
+export const concertError = (error) => ({
+  type: CONCERT_ERROR,
+  error,
+});
+
+export const concertReceived = (data) => ({
+  type: CONCERT_RECEIVED,
+  data,
+});
+
+export const concertUnload = () => ({
+  type: CONCERT_UNLOAD,
 });
 
 export const commentListRequest = () => ({
@@ -200,6 +278,56 @@ export const userSetId = (userId) => {
   return {
     type: USER_SET_ID,
     userId,
+  };
+};
+
+export const userRegisterSuccess = () => {
+  return {
+    type: USER_REGISTER_SUCCESS,
+  };
+};
+
+export const userRegister = (
+  name,
+  username,
+  password,
+  retypedPassword,
+  mail
+) => {
+  return (dispatch) => {
+    return requests
+      .post(
+        "/users",
+        { name, username, password, retypedPassword, mail },
+        false
+      )
+      .then(() => dispatch(userRegisterSuccess()))
+      .catch((error) => {
+        console.log("Registration failed");
+      });
+  };
+};
+
+export const userConfirmationSuccess = () => {
+  return {
+    type: USER_CONFIRMATION_SUCCESS,
+  };
+};
+
+export const userRegisterComplete = () => {
+  return {
+    type: USER_REGISTER_COMPLETE,
+  };
+};
+
+export const userConfirm = (confirmationToken) => {
+  return (dispatch) => {
+    return requests
+      .post("/users/confirm", { confirmationToken }, false)
+      .then(() => dispatch(userConfirmationSuccess()))
+      .catch((error) => {
+        console.log("Confirmation token is invalid");
+      });
   };
 };
 

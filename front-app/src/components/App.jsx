@@ -7,7 +7,11 @@ import BlogPostContainer from "./BlogPostContainer.jsx";
 import { requests } from "../agent";
 import { connect } from "react-redux";
 import { userProfileFetch, userSetId, userLogout } from "../actions/actions.js";
-import RegistrationForm from "./RegistrationForm.jsx";
+import RegistrationContainer from "./RegistrationContainer.jsx";
+import BlogPostForm from "./BlogPostForm.jsx";
+import Footer from "./Footer.jsx";
+import Faq from "./Faq.jsx";
+import ConcertListContainer from "./ConcertListContainer.jsx";
 
 const mapStateToProps = (state) => ({
   ...state.Auth,
@@ -55,10 +59,14 @@ class App extends Component {
         ></Header>
         <Switch>
           <Route path="/connexion" component={LoginForm} />
+          <Route path="/actualites-form" component={BlogPostForm} />
           <Route path="/actualites/:id" component={BlogPostContainer} />
-          <Route path="/register" component={RegistrationForm} />
+          <Route path="/register" component={RegistrationContainer} />
+          <Route path="/concerts" component={ConcertListContainer} />
+          <Route path="/faq" component={Faq} />
           <Route path="/" component={BlogPostListContainer} />
         </Switch>
+        <Footer></Footer>
       </div>
     );
   }

@@ -5,15 +5,15 @@ import { Row } from "react-bootstrap";
 import timeago from "timeago.js";
 import Spinner from "./Spinner";
 
-function BlogPost(props) {
-  const { post, fetching } = props;
+function Concert(props) {
+  const { concert, fetching } = props;
 
   if (fetching) {
     return <Spinner></Spinner>;
   }
 
-  if (null === post) {
-    return <div>L'article n'existe pas</div>;
+  if (null === concert) {
+    return <div>Concert n'existe pas</div>;
   }
 
   return (
@@ -21,16 +21,15 @@ function BlogPost(props) {
       <Container>
         <Row>
           <Card style={{ width: "40rem" }}>
-            <Card.Img
+            {/* <Card.Img
               variant="top"
-              src={`http://localhost:8000${post.images[0].url}`}
-            />
+              src={`http://localhost:8000${concert.images[0].url}`}
+            /> */}
             <Card.Body>
-              <Card.Title>{post.title}</Card.Title>
-              <Card.Text>{post.content}</Card.Text>
-              <Card.Text>
-                {timeago().format(post.date)} par {post.author.name}
-              </Card.Text>
+              <Card.Title>{concert.artiste}</Card.Title>
+              <Card.Text>{concert.style}</Card.Text>
+              <Card.Text>{concert.scene}</Card.Text>
+              <Card.Text>{concert.date}</Card.Text>
             </Card.Body>
           </Card>
         </Row>
@@ -39,4 +38,4 @@ function BlogPost(props) {
   );
 }
 
-export default BlogPost;
+export default Concert;

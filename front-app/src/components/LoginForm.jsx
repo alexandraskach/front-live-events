@@ -5,6 +5,7 @@ import { Button, Container, Alert } from "react-bootstrap";
 import { connect } from "react-redux";
 import { userLoginAttempt } from "../actions/actions";
 import * as Yup from "yup";
+import "../index.css";
 
 const mapStateToProps = (state) => ({
   ...state.Auth,
@@ -70,7 +71,12 @@ class LoginForm extends Component {
                 type="password"
                 name="password"
               ></RenderField>
-              <Button variant="primary" type="submit" disabled={isSubmitting}>
+              <Button
+                className="button-colored"
+                variant="primary"
+                type="submit"
+                disabled={isSubmitting}
+              >
                 Envoyer
               </Button>
             </form>
