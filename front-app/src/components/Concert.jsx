@@ -2,7 +2,6 @@ import React from "react";
 import { Card } from "react-bootstrap";
 import { Container } from "react-bootstrap";
 import { Row } from "react-bootstrap";
-import timeago from "timeago.js";
 import Spinner from "./Spinner";
 
 function Concert(props) {
@@ -21,15 +20,24 @@ function Concert(props) {
       <Container>
         <Row>
           <Card style={{ width: "40rem" }}>
-            {/* <Card.Img
+            <Card.Img
               variant="top"
               src={`http://localhost:8000${concert.images[0].url}`}
-            /> */}
+            />
             <Card.Body>
               <Card.Title>{concert.artiste}</Card.Title>
               <Card.Text>{concert.style}</Card.Text>
-              <Card.Text>{concert.scene}</Card.Text>
-              <Card.Text>{concert.date}</Card.Text>
+              <Card.Text>Scène :{concert.scene}</Card.Text>
+              <Card.Text>
+                {new Intl.DateTimeFormat("fr-FR", {
+                  year: "2-digit",
+                  month: "numeric",
+                  day: "numeric",
+                  hour: "numeric",
+                  minute: "numeric",
+                  // timeZone: "Europe/Paris",
+                }).format(new Date(concert.date))}
+              </Card.Text>
             </Card.Body>
           </Card>
         </Row>

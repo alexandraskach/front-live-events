@@ -12,7 +12,6 @@ export const tokenMiddleware = (store) => (next) => (action) => {
       window.localStorage.setItem("jwtToken", action.token);
       window.localStorage.setItem("userId", action.userId);
       requests.setToken(action.token);
-      console.log("from middleware", action.token);
       break;
     case USER_LOGOUT:
       window.localStorage.removeItem("jwtToken");

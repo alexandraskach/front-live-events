@@ -36,6 +36,10 @@ import {
   CONCERT_ERROR,
   CONCERT_RECEIVED,
   CONCERT_UNLOAD,
+  CONCERT_FORM_UNLOAD,
+  CONCERT_LIST_STYLE_REQUEST,
+  CONCERT_LIST_STYLE_ERROR,
+  CONCERT_LIST_STYLE_RECEIVED,
 } from "./constants";
 
 export const blogPostListFetch = () => {
@@ -132,6 +136,54 @@ export const concertListFetch = () => {
       .catch((error) => dispatch(concertListError(error)));
   };
 };
+
+export const concertAdd = (artiste, style, date, scene, images = []) => {
+  return (dispatch) => {
+    return requests
+      .post("/concerts", {
+        artiste,
+        style,
+        date,
+        scene,
+        images: images.map((image) => `/api/images/${image.id}`),
+      })
+      .catch((error) => {
+        if (401 === error.response.status) {
+          return dispatch(userLogout());
+        } else if (403 === error.response.status) {
+          console.log("You do not have rights to publish blog posts!");
+        }
+      });
+  };
+};
+
+export const concertListFetchByStyle = (style) => {
+  return (dispatch) => {
+    dispatch(concertListStyleRequest());
+    return requests
+      .get(`/concerts?style=${style}`)
+      .then((response) => dispatch(concertListStyleReceived(response)))
+      .catch((error) => dispatch(concertListStyleError(error)));
+  };
+};
+
+export const concertListStyleRequest = () => ({
+  type: CONCERT_LIST_STYLE_REQUEST,
+});
+
+export const concertListStyleError = (error) => ({
+  type: CONCERT_LIST_STYLE_ERROR,
+  error,
+});
+
+export const concertListStyleReceived = (data) => ({
+  type: CONCERT_LIST_STYLE_RECEIVED,
+  data,
+});
+
+export const concertFormUnload = () => ({
+  type: CONCERT_FORM_UNLOAD,
+});
 
 export const concertRequest = () => ({
   type: CONCERT_REQUEST,

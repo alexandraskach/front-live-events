@@ -1,13 +1,13 @@
 import {
-  BLOG_POST_FORM_UNLOAD,
   IMAGE_DELETE_REQUEST,
   IMAGE_DELETED,
   IMAGE_UPLOAD_ERROR,
   IMAGE_UPLOAD_REQUEST,
   IMAGE_UPLOADED,
+  CONCERT_FORM_UNLOAD,
 } from "../actions/constants";
 
-const blogPostFormReducer = (
+const concertFormReducer = (
   state = {
     imageReqInProgress: false,
     images: [],
@@ -32,7 +32,7 @@ const blogPostFormReducer = (
         ...state,
         imageReqInProgress: false,
       };
-    case BLOG_POST_FORM_UNLOAD:
+    case CONCERT_FORM_UNLOAD:
       return {
         ...state,
         imageReqInProgress: false,
@@ -49,4 +49,4 @@ const blogPostFormReducer = (
   }
 };
 
-export default blogPostFormReducer;
+export default concertFormReducer;

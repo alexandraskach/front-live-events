@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import RenderField from "../form";
+import RenderField from "../renderField";
 import { Formik } from "formik";
 import { Button, Container, Alert, Form } from "react-bootstrap";
 import { connect } from "react-redux";

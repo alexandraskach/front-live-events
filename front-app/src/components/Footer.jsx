@@ -16,7 +16,7 @@ import {
 class Footer extends Component {
   render() {
     return (
-      <footer class="text-center text-lg-start bg-light text-muted mt-5">
+      <footer class="text-center text-lg-start bg-light text-muted mt-2">
         <section class="d-flex justify-content-center p-4 border-bottom"></section>
         <section class="">
           <div class="container text-center text-md-start mt-5">
@@ -26,19 +26,19 @@ class Footer extends Component {
                 <p>événementiel - tournées - promotion</p>
                 <section class="justify-content-center">
                   <div>
-                    <a href="#" class="me-4 text-reset">
+                    <a href="#!" class="me-4 text-reset">
                       <FontAwesomeIcon icon={faInstagram} />
                     </a>
-                    <a href="#" class="me-4 text-reset">
+                    <a href="#!" class="me-4 text-reset">
                       <FontAwesomeIcon icon={faTwitterSquare} />
                     </a>
-                    <a href="#" class="me-4 text-reset">
+                    <a href="#!" class="me-4 text-reset">
                       <FontAwesomeIcon icon={faSnapchat} />
                     </a>
-                    <a href="#" class="me-4 text-reset">
+                    <a href="#!" class="me-4 text-reset">
                       <FontAwesomeIcon icon={faFacebook} />
                     </a>
-                    <a href="#" class="me-4 text-reset">
+                    <a href="#!" class="me-4 text-reset">
                       <FontAwesomeIcon icon={faLinkedin} />
                     </a>
                   </div>
@@ -58,8 +58,8 @@ class Footer extends Component {
                   </a>
                 </p>
                 <p>
-                  <a href="#!" class="text-reset">
-                    Programmation
+                  <a href="politique-de-confidentialite" class="text-reset">
+                    Politique de confidentialité
                   </a>
                 </p>
               </div>
@@ -67,7 +67,7 @@ class Footer extends Component {
               <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
                 <h6 class="text-uppercase fw-bold mb-4">Liens utiles</h6>
                 <p>
-                  <a href="#!" class="text-reset">
+                  <a href="https://billetto.fr/" class="text-reset">
                     Billeterie
                   </a>
                 </p>

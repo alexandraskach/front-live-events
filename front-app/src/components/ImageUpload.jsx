@@ -18,6 +18,7 @@ class ImageUpload extends Component {
       <div className="mt-2 mb-2">
         <Form.Label>Image</Form.Label>
         <FormControl
+          style={{ width: "25rem" }}
           type="file"
           onChange={this.onChange.bind(this)}
         ></FormControl>

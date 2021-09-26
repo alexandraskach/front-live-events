@@ -12,6 +12,11 @@ import BlogPostForm from "./BlogPostForm.jsx";
 import Footer from "./Footer.jsx";
 import Faq from "./Faq.jsx";
 import ConcertListContainer from "./ConcertListContainer.jsx";
+import ConcertContainer from "./ConcertContainer.jsx";
+import Home from "./Home.jsx";
+import ConcertForm from "./ConcertForm.jsx";
+import PrivacyPolicy from "./PrivacyPolicy.jsx";
+import Partners from "./Partners.jsx";
 
 const mapStateToProps = (state) => ({
   ...state.Auth,
@@ -62,9 +67,17 @@ class App extends Component {
           <Route path="/actualites-form" component={BlogPostForm} />
           <Route path="/actualites/:id" component={BlogPostContainer} />
           <Route path="/register" component={RegistrationContainer} />
+          <Route path="/concerts-form" component={ConcertForm} />
+          <Route path="/partenaires" component={Partners} />
+          <Route path="/concerts/:id" component={ConcertContainer} />
           <Route path="/concerts" component={ConcertListContainer} />
           <Route path="/faq" component={Faq} />
-          <Route path="/" component={BlogPostListContainer} />
+          <Route
+            path="/politique-de-confidentialite"
+            component={PrivacyPolicy}
+          />
+          <Route path="/actualites" component={BlogPostListContainer} />
+          <Route path="/" component={Home} />
         </Switch>
         <Footer></Footer>
       </div>

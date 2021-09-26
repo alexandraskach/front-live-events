@@ -5,7 +5,7 @@ import Spinner from "./Spinner";
 import Concert from "./Concert";
 
 const mapStateToProps = (state) => ({
-  //   ...state.BlogPost,
+  ...state.Concert,
 });
 
 const mapDispatchToProps = {

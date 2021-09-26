@@ -3,12 +3,11 @@ import { Card } from "react-bootstrap";
 import { Button, Badge } from "react-bootstrap";
 import { Container } from "react-bootstrap";
 import { Row } from "react-bootstrap";
-import timeago from "timeago.js";
 import Spinner from "./Spinner";
 import "../index.css";
 
 function ConcertList(props) {
-  const { concerts, fetching } = props;
+  const { concerts, fetching, concertsByStyle } = props;
 
   if (fetching) {
     return <Spinner></Spinner>;
@@ -23,19 +22,19 @@ function ConcertList(props) {
       <Container>
         <h3 className="pb-3">Liste des concerts à venir :</h3>
         <div>
-          <Badge bg="primary" className="m-1">
+          <Badge bg="dark" className="m-1">
             Rock
           </Badge>
-          <Badge bg="primary" className="m-1">
+          <Badge bg="dark" className="m-1">
             Techno
           </Badge>
-          <Badge bg="primary" className="m-1">
+          <Badge bg="dark" className="m-1">
             Rap
           </Badge>
-          <Badge bg="primary" className="m-1">
+          <Badge bg="dark" className="m-1">
             Pop
           </Badge>
-          <Badge bg="primary" className="m-1">
+          <Badge bg="dark" className="m-1">
             Metal
           </Badge>
         </div>
@@ -51,7 +50,15 @@ function ConcertList(props) {
                   <Card.Title>{concert.artiste}</Card.Title>
                   <Card.Text>Style: {concert.style}</Card.Text>
                   <Card.Text>Scène {concert.scene}</Card.Text>
-                  <Card.Text>{concert.date}</Card.Text>
+                  <Card.Text>
+                    {new Intl.DateTimeFormat("fr-FR", {
+                      year: "2-digit",
+                      month: "numeric",
+                      day: "numeric",
+                      hour: "numeric",
+                      minute: "numeric",
+                    }).format(new Date(concert.date))}
+                  </Card.Text>
                   <Button
                     className="button-colored"
                     href={`/concerts/${concert.id}`}

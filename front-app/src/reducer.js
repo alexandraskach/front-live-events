@@ -7,6 +7,8 @@ import Auth from "./reducers/AuthReducer.js";
 import Registration from "./reducers/RegistrationReducer.js";
 import BlogPostForm from "./reducers/BlogPostFormReducer.js";
 import ConcertList from "./reducers/ConcertListReducer.js";
+import Concert from "./reducers/ConcertReducer.js";
+import ConcertForm from "./reducers/ConcertFormReducer.js";
 
 const createRootReducer = (history) =>
   combineReducers({
@@ -15,9 +17,11 @@ const createRootReducer = (history) =>
     BlogPost,
     CommentList,
     ConcertList,
+    Concert,
     Auth,
     Registration,
     BlogPostForm,
+    ConcertForm,
   });
 
 export default createRootReducer;

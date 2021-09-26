@@ -24,3 +24,6 @@ code {
   background-color: var(--principal) !important;
   border: var(--principal) !important;
 }
+.button-colored:hover {
+  background-color: rgb(218, 132, 75) !important;
+}

@@ -15,12 +15,12 @@ function CommentList(props) {
   }
   console.log(commentList);
   return (
-    <Container>
+    <Container className="mt-3">
       <TransitionGroup>
         {commentList.map((comment) => {
           return (
             <CSSTransition key={comment.id} timeout={500} classNames="fade">
-              <Card>
+              <Card style={{ width: "18rem" }}>
                 <Card.Body>
                   <Card.Text>{comment.content}</Card.Text>
                   <Card.Text className="mb-2 text-muted">

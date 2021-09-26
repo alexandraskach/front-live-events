@@ -15,6 +15,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { tokenMiddleware } from "./middleware.js";
 
 const history = createBrowserHistory();
+const store = configureStore();
 
 export default function configureStore(state) {
   const store = createStore(
@@ -31,7 +32,6 @@ export default function configureStore(state) {
 
   return store;
 }
-const store = configureStore();
 
 ReactDOM.render(
   <React.StrictMode>

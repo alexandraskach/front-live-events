@@ -1,11 +1,12 @@
 import React, { Component } from "react";
-import RenderField from "../form";
+import RenderField from "../renderField";
 import { Formik } from "formik";
 import { Button, Container, Alert, Card } from "react-bootstrap";
 import * as Yup from "yup";
 import { connect } from "react-redux";
 import { commentAdd } from "../actions/actions";
 import "./CommentList.css";
+import TextAreaField from "../textareaField";
 
 const mapDispatchToProps = {
   commentAdd,
@@ -15,18 +16,17 @@ class CommentForm extends Component {
   render() {
     return (
       <Container>
-        <Card className="mt-4">
+        <Card className="mt-4" style={{ width: "30rem" }}>
           <Card.Body>
             <Formik
               initialValues={{ content: "", actualite: "" }}
               onSubmit={(values, { setSubmitting, resetForm }) => {
                 const { commentAdd, blogPostId } = this.props;
                 values.actualite = blogPostId;
-                console.log("form data", values);
                 setSubmitting = "false";
-                resetForm();
-                console.log(values.actualite);
-                return commentAdd(values.content, values.actualite);
+                return commentAdd(values.content, values.actualite).then(() => {
+                  resetForm();
+                });
               }}
               validationSchema={Yup.object({
                 content: Yup.string()
@@ -59,11 +59,11 @@ class CommentForm extends Component {
                 isSubmitting,
               }) => (
                 <form onSubmit={handleSubmit}>
-                  <RenderField
+                  <TextAreaField
                     label="Ecrire un commentaire"
                     type="textarea"
                     name="content"
-                  ></RenderField>
+                  ></TextAreaField>
                   <Button
                     variant="primary"
                     type="submit"

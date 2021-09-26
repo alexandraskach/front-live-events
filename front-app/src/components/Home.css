@@ -1,0 +1,11 @@
+:root {
+  --principal: rgb(255, 115, 0);
+  --secondary: rgb(255, 0, 149);
+  --title: white;
+}
+.main {
+  background-image: url("../images/banner.jpg");
+}
+.title {
+  color: var(--title);
+}
